@@ -6,7 +6,7 @@ https://zupple-app.netlify.app/
 ## User Instructions
 Zupple has 3 modes: Wordsearch, Crossword, and Sudoku. In each mode, users can generate puzzles and view them. Logged in users can edit, save, and print puzzles as well. To get started in any of the 3 modes, optionally log in, and then click the mode from the menu bar in the top left area of the browser window. 
 
-**Puzzle List tab** From the Puzzle List tab, click the 'Create New Puzzle' button to create a new puzzle. If you have any saved puzzles, click on the edit, view, or delete icons for thar puzzle to take any of these options.
+**Puzzle List tab** - From the Puzzle List tab, click the 'Create New Puzzle' button to create a new puzzle. If you have any saved puzzles, click on the edit, view, or delete icons for thar puzzle to take any of these options.
 
 **Edit tab** - Fill out all of the required fields. Clicking the 'Generate Puzzle' button will generate the puzzle and open the 'View' tab.
 
