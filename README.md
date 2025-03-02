@@ -12,7 +12,7 @@ Zupple has 3 modes: Wordsearch, Crossword, and Sudoku. In each mode, users can g
 
 **View/Save tab** - Here you can view, save, or print your puzzle. 
 
-For Wordsearch puzzles, if certain words didn't make it into the generated puzzle, it will be indicated in the View/Save tab. When this happens, go to the Edit tab. Here are 3 things that will help ensure that all of your words fit into the puzzle:
+For Wordsearch puzzles, if certain words didn't make it into the generated puzzle, it will be indicated in the View/Save tab. When this happens, go to the Edit tab. Here are 3 things you can do to help ensure that all of your words fit into the puzzle:
 1. Increase the width and/or height
 2. Remove words from the word list
 3. Increase the possible word directions
