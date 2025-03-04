@@ -1,6 +1,4 @@
 <template>
-<!-- Feel free to change this, I currently have the 'role' property take in the desired role to login as from an outside source -->
-<!-- i.e. from login button on home router-links to here with the param "renter" attached to let that instance of login know that a renter will log in -->
 	<div class="mt-3 d-flex flex-column align-items-start">
 		<Register v-if="isRegistering" @backToLogin="isRegistering = false"/>
     <div v-else>
@@ -39,7 +37,6 @@
 				</div>
 			</div>
 		</div>
-		
 	</div>
 </template>
 
@@ -53,9 +50,6 @@ import PasswordInput from "@/components/Authorization/PasswordInput.vue";
 import Register from "@/components/Authorization/Register.vue";
 
 const userStore = useUserStore();
-// const props = defineProps({ 
-// 	showClose: { type: Boolean, default: false }
-// });
 const emit = defineEmits(['loggedIn', 'clearAllData', 'close']);
 const isRegistering = ref(false);
 
@@ -76,12 +70,10 @@ async function login() {
     displayToast(`Logged in as ${user.username}`, CONSTANTS.SUCCESS);
 		emit('close');
 	} catch(error) {
-		//userStore.clearUser();
 		emit('clearAllData');
     displayToast("Invalid Login!", CONSTANTS.ERROR);
 	}
 }
-
 </script>
 
 <style scoped>

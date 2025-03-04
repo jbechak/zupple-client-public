@@ -1,8 +1,8 @@
 <template>
   <div v-if="puzzleData">
     <h2 class="mt-2 mb-0">{{ puzzleData.title }}</h2>
-    <h5>{{ puzzleData.difficulty }}</h5>
-    <div class="my-3">
+    <h5 v-if="puzzleData.showDifficulty" class="mb-0">{{ puzzleData.difficulty }}</h5>
+    <div class="mb-3 mt-1">
       {{ puzzleData.instructions }}
     </div>
     <div class="d-flex flex-row justify-content-evenly mt-4">
@@ -13,8 +13,27 @@
       </div>
       <div>
         <h5>Word List</h5>
-        <div v-for="word in puzzleData.wordCollection" :key="word">
+        <div v-for="word in puzzleData.usedWords" :key="word">
           {{ word }}
+        </div>
+        <div class="mt-3" v-if="!isPrint && puzzleData.unusedWords?.length > 0">
+          <div class="form-check">
+            <input 
+              class="form-check-input" 
+              type="checkbox"
+              id="flexCheckDefault"
+              v-model="showUnusedWords"
+            >
+            <label class="form-check-label mb-2" for="flexCheckDefault">
+              Show Unused Words
+            </label>
+          </div>
+          <div v-if="showUnusedWords" class="text-danger">
+            <h5>Unused Words</h5>
+            <div v-for="word in puzzleData.unusedWords" :key="word">
+              {{ word }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,11 +41,14 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   puzzleData: { type: Object, default: null },
+  isPrint: { type: Boolean, default: false },
 });
+
+const showUnusedWords = ref(true);
 
 const puzzleGrid = computed(() => {
   if (!props.puzzleData || !Object.keys(props.puzzleData).length > 0) 

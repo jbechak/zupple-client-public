@@ -44,17 +44,13 @@ export default class service {
   
   static async create(requestObject) {
     if (!requestObject) throw new Error("'requestObject' must be specified");
-    console.log('service post', requestObject)
     const result = (await axios.post(this.serviceRoot, requestObject)).data;
-    console.log('post result', result)
     return result;
   }
   
   static async update(requestObject) {
     if (!requestObject) throw new Error("'requestObject' must be specified");
-    console.log('service put', requestObject)
     const result = (await axios.put(this.serviceRoot, requestObject)).data;
-    console.log('put result', result)
     return result;
   }
 

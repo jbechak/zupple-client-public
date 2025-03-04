@@ -1,0 +1,6 @@
+{
+  "appId": "com.zupple.myapp",
+  "appName": "Zupple",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

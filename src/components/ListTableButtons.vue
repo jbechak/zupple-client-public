@@ -12,7 +12,7 @@
         icon="eye"
         @click="emit('view', record)"
       />
-      <font-awesome-icon class="text-black-50 btn ps-0" size="lg" icon="play" />
+      <!-- <font-awesome-icon class="text-black-50 btn ps-0" size="lg" icon="play" /> -->
       <font-awesome-icon
         class="text-danger btn px-0"
         size="lg"

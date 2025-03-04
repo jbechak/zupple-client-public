@@ -74,7 +74,6 @@ const validationErrors = ref(null);
 
 //#region SETUP FUNCTIONS
 function setUpFormData(record) {
-  console.log('setUpFormData', record)
   if (record) {
     Object.assign(props.formData, record); 
     storedDifficulty.value = props.formData.difficulty;
@@ -84,15 +83,12 @@ function setUpFormData(record) {
 }
 
 function resetFormData(keepId = false) {
-  console.log('resetFormData', keepId);
   Object.assign(
     props.formData, 
     keepId 
       ? { ...defaultFormData.sudoku, id: props.formData.id } 
       : defaultFormData.sudoku
   );
-  
-  console.log('resetFormData', props.formData);
 }
 
 async function generatePuzzle(isCopy = false) {
@@ -132,7 +128,6 @@ watch (
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
       setUpFormData(props.formData);
-      console.log('watch formData.id');
     }
   },
 );

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav class="navbar fixed-top ps-3 pe-1 py-0">
-      <div class="d-flex justify-content-start">
+    <nav class="navbar fixed-top pe-1 py-0">
+      <div class="d-flex puzzle-types">
         <div :class="getClass(CONSTANTS.WORDSEARCH)" id="ws-nav" @click="selectTab(CONSTANTS.WORDSEARCH)">
           Wordsearch
         </div>
@@ -25,12 +25,21 @@
       </div>
     </nav>
     <div class="px-3">
-      <Login 
-        v-if="isLoggingIn" 
-        class="border-bottom mb-3"
-        @loggedIn="isLoggingIn = false"
-        @close="isLoggingIn = false" 
-      />
+      <Transition       
+        enter-active-class="collapsing"
+        enter-from-class="collapse"
+        enter-to-class="collapse show"
+        leave-active-class="collapsing"
+        leave-from-class="collapse show"
+        leave-to-class="collapse"
+      >
+        <Login 
+          v-if="isLoggingIn" 
+          class="collapse border-bottom mb-3"
+          @loggedIn="isLoggingIn = false"
+          @close="isLoggingIn = false" 
+        />
+      </Transition>
       <ModuleView 
         v-if="selectedTab" 
         ref="moduleView"
@@ -49,7 +58,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup>
@@ -92,8 +100,18 @@ function clearAllData() {
 </script>
 
 <style scoped>
+.collapsing {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.10s ease;
+}
+.collapse.show {
+  height: auto;
+}
+
 .navbar {
   background: #F7F5F0;
+  padding-left: 20px;
 }
 .nav-item {
   width: 100px;
@@ -115,5 +133,25 @@ function clearAllData() {
 }
 .nav-item, .text-primary:hover {
   cursor: pointer;
+}
+.puzzle-types {
+  justify-content: start;
+}
+
+@media only screen and (max-width: 499px) {
+  .navbar {
+    padding-left: 5px;
+  }
+  .nav-item {
+    width: 90px;
+    font-size: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .puzzle-types {
+    width: 250px;
+    justify-content: space-between;
+    margin-left: 0px;
+  }
 }
 </style>

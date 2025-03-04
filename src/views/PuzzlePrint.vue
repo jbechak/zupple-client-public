@@ -1,11 +1,11 @@
 <template>
   <div ref="document">
-    <component :is="selectedComponent" :puzzleData="puzzleData" />
+    <component :is="selectedComponent" :puzzleData="puzzleData" isPrint />
   </div>
 </template>
 
 <script setup>
-import { computed, watch, nextTick } from "vue";
+import { computed, watch } from "vue";
 import { CONSTANTS } from "@/constants";
 import { getComponent } from "@/helpers";
 import DynamicService from '@/services/DynamicService';
@@ -25,8 +25,9 @@ const selectedComponent = computed(() =>
 const { data: puzzleData, isFetching: isFetching } = DynamicService.useGet(props.puzzleId, props.puzzleType);
 
 async function printPuzzle() {
-  await nextTick()
-  print();
+  setTimeout(() => {
+    window.print();
+  }, 500);
 }
 
 watch(
@@ -34,11 +35,16 @@ watch(
   (value) => {
     if (!value && puzzleData.value) {
       printPuzzle();
-      //await nextTick()
-      //print();
-      // html2Pdf.value.generatePdf()
     }
   },
   { immediate: true }
 );
 </script>
+
+<style scoped>
+@page {
+  size: A4;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+</style>

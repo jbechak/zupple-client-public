@@ -11,14 +11,12 @@ export const useUserStore = defineStore("userStore", {
     setUser(data) {
       this.user = {};
       Object.assign(this.user, data);
-      console.log('set user', data)
     },   
     getUser() {
       return this.user;
     },
     setToken(data) {
       this.token = data;
-      console.log('set token', data)
     },   
     getToken() {
       return this.token;

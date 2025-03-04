@@ -29,6 +29,7 @@
           :disabled="!formData.id"
           @click="printPuzzle"
         >
+        <font-awesome-icon icon="external-link" />
           Print
         </button>
       </div>
@@ -71,23 +72,17 @@ const selectedComponent = computed(() =>
 async function savePuzzle() {  
   const userId = userStore.getUser().id;
   if (!userId) {
-    console.log('no user Id. Please log in');
     return;
   }
   props.formData.userId = userId;
   try {
     if (props.formData.id) {
       await DynamicService.update(props.puzzleType, props.formData);
-      console.log('save 3a')
     } else {
       const result = await DynamicService.create(props.puzzleType, props.formData);
-      console.log('save 3b')
       props.formData.id = result.id;
-      //Object.assign(props.formData, result);
     }
-    console.log('save 4')
     displayToast(`${toTitleCase(props.puzzleType)} Saved!`, CONSTANTS.SUCCESS);
-    console.log('save 5')
     emit('puzzleUpdated');
   } catch(error) {
     displayToast("Save Error!", CONSTANTS.ERROR);
@@ -95,7 +90,6 @@ async function savePuzzle() {
 }
 
 function printPuzzle() {
-  console.log('print');
   const routeData = router.resolve({ 
     name: 'puzzlePrint', 
     params: { 

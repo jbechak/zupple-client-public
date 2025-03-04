@@ -147,7 +147,6 @@ function updateClueList(key, clue, clueListProp, clueMapProp) {
 
 //#region SETUP FUNCTIONS
 function setUpFormData(record) {
-  console.log('setUpFormData', record)
   if (record) {
     Object.assign(props.formData, record); 
     setUpWordClueListObj();
@@ -187,18 +186,16 @@ function setClueMap(clueListProp, clueMapProp) {
 }
 
 function resetFormData(keepId = false) {
-  console.log('resetFormData', keepId);
   Object.assign(
     props.formData, 
     keepId 
       ? { ...defaultFormData.crossword, id: props.formData.id } 
       : defaultFormData.crossword
   );
-  //Object.assign(props.formData.wordClueListObj, {});
+
   for (const key in props.formData.wordClueListObj) {
     delete props.formData.wordClueListObj[key];
   }
-  console.log('resetFormData', props.formData);
 }
 //#endregion
 
@@ -209,10 +206,11 @@ async function generatePuzzle(isCopy = false) {
   try {
     if (isCopy)
       props.formData.id = null;
+
     const result = await CrosswordService.generate(props.formData);
-    console.log('generate result', result);
     emit('goToPuzzleView', {...result, id: props.formData.id });
     displayToast("Crossword Generated!", CONSTANTS.SUCCESS);
+
   } catch(error) {
     displayToast("Error generating puzzle!", CONSTANTS.ERROR);
   }
@@ -241,7 +239,6 @@ function validateForm() {
 watch (
   () => Object.values(props.formData.wordClueListObj),
   (value) => {
-    console.log('wordClue watch', props.formData.wordClueListObj);
     props.formData.wordClues = Object.fromEntries(value.map(item => [item.word, item.clue]));
   },
   { deep: true }
@@ -259,7 +256,6 @@ watch (
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
       setUpFormData(props.formData);
-      console.log('watch formData.id, wordClues', newValue, props.formData.wordClues);
     }
   },
 );

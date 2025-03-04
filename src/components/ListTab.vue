@@ -42,7 +42,7 @@ import ListingTable from '@/components/ListingTable.vue';
 
 const props = defineProps({
   puzzleType: { type: String, default: null },
-  userId: { type: String, default: null },
+  userId: { type: Number, default: null },
 });
 
 const emit = defineEmits(['goToPuzzleView', 'goToPuzzleEdit', 'login']);
@@ -52,7 +52,6 @@ const isLoggingIn = ref(false);
 const listingData = ref([]);
 async function getListingData() {
   listingData.value = (await DynamicService.getByUser(props.userId, props.puzzleType)).data;
-  console.log('listingData.value', listingData.value);
   formatListingData();
 }
 
@@ -89,7 +88,6 @@ async function deletePuzzle(record) {
 watch(
   () => [props.userId, props.puzzleType],
   () => {
-    console.log('props.userId, props.puzzleType', props.userId, props.puzzleType)
     if (props.userId && props.puzzleType)
       getListingData()
   },

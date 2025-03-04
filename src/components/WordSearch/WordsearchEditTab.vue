@@ -53,7 +53,7 @@
       </div>
     </div>
     <div :class="STYLES.FORM_GROUP">
-      <label for="wsWordList" class="me-1 label">Word List *</label>
+      <label for="wsWordList" class="me-1 label">{{ wordListLabel }}</label>
     </div>
     <div v-for="key in Object.keys(formData.wordListObj)" :key="key">
       <div :class="STYLES.D_FLEX">
@@ -94,7 +94,17 @@
       />
     </div>
     <label for="difficulty" class="mt-2 label">Estimated Difficulty</label>
-    <div id="difficulty" class="form-text">{{ difficulty }}</div>
+    <div id="difficulty" class="form-text mb-2">{{ difficulty }}</div>
+    <div class="form-check">
+      <input 
+        class="form-check-input" 
+        type="checkbox" 
+        v-model="formData.showDifficulty" 
+        id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        Show Difficulty
+      </label>
+    </div>
     <GenerateButtonBar
       :isNew="!formData.id"
       :mustGenerateToSave="isDependentDataChanged"
@@ -138,6 +148,16 @@ const difficultyEnum = {
 
 //#region OTHER VARIABLES
 const validationErrors = ref(null);
+
+const wordListLabel = computed(() => { 
+  const wordCount = props.formData.wordCollection.length;
+  if (wordCount < 1) 
+    return 'Word List *';
+  
+    const endClause = wordCount > 1 ? 'words) *' : 'word) *';
+  return `Word List (${wordCount} ${endClause}`;
+});
+
 const difficulty = computed(() => {
   const points = (remainingSpaces() / 50)
     + (props.formData.wordDirections * 2 - 2)
@@ -214,7 +234,6 @@ async function generatePuzzle(isCopy = false) {
     if (isCopy)
       props.formData.id = null;
     const result = await WordsearchService.generate(props.formData);
-    console.log('generate result', result);
     emit('goToPuzzleView', {...result, id: props.formData.id, isSaveEnabled: true });
     displayToast("Wordsearch Generated!", CONSTANTS.SUCCESS);
   } catch(error) {
@@ -292,7 +311,6 @@ watch (
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
       setUpFormData(props.formData);
-      console.log('watch formData.id');
     }
   },
 );

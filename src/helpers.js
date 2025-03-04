@@ -8,7 +8,6 @@ import SudokuEditTab from '@/components/SuDoku/SudokuEditTab.vue'
 import WordsearchPuzzle from "@/components/WordSearch/WordsearchPuzzle.vue";
 import CrosswordPuzzle from "@/components/Crossword/CrosswordPuzzle.vue";
 import SudokuPuzzle from "@/components/SuDoku/SudokuPuzzle.vue";
-import * as yup from 'yup';
 
 export function getGuid() {
   return Math.random().toString(36).substring(2, 15) +
@@ -20,7 +19,8 @@ export const displayToast = (msg, type) =>
   toast(msg, { 
     autoClose: 1500, 
     type: type, 
-    hideProgressBar: true
+    hideProgressBar: true,
+    position: 'bottom-right'
   });
 
 const defaultSortColumn = {
@@ -39,7 +39,6 @@ Object.assign(sortColumn.crossword, defaultSortColumn);
 Object.assign(sortColumn.sudoku, defaultSortColumn);
 
 export function sortBy(listingData, column, puzzleType, isNumber = false) {
-  console.log('sortBy', listingData, column, puzzleType);
   const sortCol = sortColumn[puzzleType];
 
   if (sortCol.name === column) {
@@ -48,7 +47,6 @@ export function sortBy(listingData, column, puzzleType, isNumber = false) {
     sortCol.name = column;
     sortCol.isDesc = false;
   }
-  console.log('sortCol', sortCol)
   sortColumn[puzzleType].isDesc
     ? sortDescending(listingData, sortCol, isNumber)
     : sortAscending(listingData, sortCol, isNumber);
@@ -90,6 +88,7 @@ export const defaultFormData = {
     wordDirections: 1,
     wordCollection: [],
     wordListObj: {},
+    showDifficulty: false,
     isSaveEnabled: true,
   },
   crossword:  {
@@ -165,23 +164,5 @@ export function getComponent(puzzleType, componentType) {
 }
 
 export function nullIfEmpty(event, formData, property) {
-  console.log('event', event)
   formData[property] = event.target.value === '' ? null : event.target.value;
 }
-
-// export function validateForm(validationSchema) {
-//   let validationErrors = [];
-//   let status = true;
-//   try {
-//     validationSchema.validateSync(props.formData, { abortEarly: false });
-//     //status = true;
-//     //return { status: true, errors: validationErrors };
-//   } catch (error) {
-//     error.inner.forEach(e => {
-//         validationErrors.value.push(e.message);
-//     });
-//     status = false
-//     // return { status: false, errors: validationErrors };
-//   }
-//   return { status: status, errors: validationErrors };
-// }

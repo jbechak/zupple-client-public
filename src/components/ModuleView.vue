@@ -22,13 +22,13 @@
           :disabled="!showView"
           @tab-selected="selectedTab = CONSTANTS.VIEW"
         />
-        <nav-tab
+        <!-- <nav-tab
           :tabName="CONSTANTS.PLAY"
           :selected-tab="selectedTab"
           :tabLabel="'Play'"
           disabled
           @tab-selected="selectedTab = CONSTANTS.PLAY"
-        />
+        /> -->
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -69,7 +69,6 @@
       >
         <ViewTab
           v-if="selectedTab === CONSTANTS.VIEW && formData[puzzleType].gridString"
-          :is="components?.view"
           :puzzleType="puzzleType"
           :userId="userId"
           v-model:formData="formData[puzzleType]"
@@ -92,7 +91,7 @@ import { CONSTANTS, STYLES } from '@/constants'
 
 const props = defineProps({
   puzzleType: { type: String, default: null },
-  userId: { type: String, default: null },
+  userId: { type: Number, default: null },
 });
 const emit = defineEmits(['login']);
 defineExpose({ resetAllFormData });
@@ -138,9 +137,6 @@ function updateListing() {
 function resetAllFormData() {
   Object.assign(formData, {});
   setDefaultFormData();
-  //selectedTab.value = null
-  console.log('resetAllFormData')
-  console.log('wordClueListObj', formData[CONSTANTS.CROSSWORD].wordClueListObj);
 }
 
 watch(

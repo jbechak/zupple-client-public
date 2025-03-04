@@ -46,18 +46,14 @@ export default class DynamicService {
   static async create(serviceRoot, requestObject) {
     if (!serviceRoot) throw new Error("'serviceRoot' must be specified");
     if (!requestObject) throw new Error("'requestObject' must be specified");
-    console.log('service post', requestObject)
     const result = (await axios.post(serviceRoot, requestObject)).data;
-    console.log('post result', result)
     return result;
   }
   
   static async update(serviceRoot, requestObject) {
     if (!serviceRoot) throw new Error("'serviceRoot' must be specified");
     if (!requestObject) throw new Error("'requestObject' must be specified");
-    console.log('service put', requestObject)
     const result = (await axios.put(serviceRoot, requestObject)).data;
-    console.log('put result', result)
     return result;
   }
   
